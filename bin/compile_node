@@ -147,7 +147,13 @@ elif $use_cache; then
 else
   info "Installing node modules"
   touch $build_dir/app_src/.npmrc
+  echo "Test 1:"
+  pwd
+  ls
   cd $build_dir/app_src
+  echo "test 2:"
+  pwd
+  ls
   npm install --quiet --userconfig .npmrc 2>&1 | indent
   cd -
 fi
