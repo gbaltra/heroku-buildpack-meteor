@@ -48,14 +48,10 @@ elif [ -f $build_dir/server.js ]; then start_method="server.js"
 else start_method=""
 fi
 
-echo "Test location"
-pwd
-ls $build_dir
-
 # What's the source-of-truth for node_modules?
 if test -d $build_dir/node_modules; then modules_source="prebuilt"
 elif test -f $build_dir/npm-shrinkwrap.json; then modules_source="npm-shrinkwrap.json"
-elif test -f $build_dir/app_src/package.json; then modules_source="package.json"
+elif test -f $build_dir/package.json; then modules_source="package.json"
 else modules_source=""
 fi
 
@@ -152,8 +148,6 @@ else
   info "Installing node modules"
   touch $build_dir/.npmrc
   npm install --quiet --userconfig $build_dir/.npmrc 2>&1 | indent
-  echo "cat .npmrc"
-  cat $build_dir/.npmrc
 fi
 
 ####### Create a Procfile if possible
