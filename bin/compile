@@ -7,15 +7,15 @@ bp_dir=$(cd $(dirname $0); cd ..; pwd)
 source $bp_dir/bin/common.sh
 
 # Move the Meteor's app source into a subdirectory
-#(
-#  head "Moving app source into a subdirectory"
-#  cd $1
-#  mkdir ../app_src
-#  # the shopt makes the * glob catch .files
-#  shopt -s dotglob nullglob
-#  mv * ../app_src
-#  mv ../app_src ./app_src
-#)
+(
+  head "Moving app source into a subdirectory"
+  cd $1
+  mkdir ../app_src
+  # the shopt makes the * glob catch .files
+  shopt -s dotglob nullglob
+  mv * ../app_src
+  mv ../app_src ./app_src
+)
 
 
 # Install node first, as a dependency, then install meteor & build app

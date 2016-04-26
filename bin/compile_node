@@ -13,6 +13,7 @@ cache_dir=$2
 env_dir=$3
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
 heroku_dir=$build_dir/.heroku
+APP_SOURCE=$BUILD_DIR/app_src
 mkdir -p $heroku_dir/node
 
 # Load some convenience functions like status(), echo(), and indent()
@@ -51,7 +52,7 @@ fi
 # What's the source-of-truth for node_modules?
 if test -d $build_dir/node_modules; then modules_source="prebuilt"
 elif test -f $build_dir/npm-shrinkwrap.json; then modules_source="npm-shrinkwrap.json"
-elif test -f $build_dir/package.json; then modules_source="package.json"
+elif test -f $APP_SOURCE/package.json; then modules_source="package.json"
 else modules_source=""
 fi
 
@@ -146,8 +147,10 @@ elif $use_cache; then
 
 else
   info "Installing node modules"
-  touch $build_dir/.npmrc
-  npm install --quiet --userconfig $build_dir/.npmrc 2>&1 | indent
+  cd $APP_SOURCE
+  touch .npmrc
+  npm install --quiet --userconfig .npmrc 2>&1 | indent
+  cd -
 fi
 
 ####### Create a Procfile if possible
